@@ -1,0 +1,23 @@
+{
+  "name": "kordaserver",
+  "version": "1.0.0",
+  "description": "Zasedaci pořádek",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokrda/projekt.git"
+  },
+  "author": "Jakub Kokrda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kokrda/projekt/issues"
+  },
+  "homepage": "https://github.com/kokrda/projekt#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}

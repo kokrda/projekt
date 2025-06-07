@@ -1,0 +1,22 @@
+CREATE TABLE subjects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  code TEXT NOT NULL
+);
+
+CREATE TABLE places (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  row INTEGER NOT NULL,
+  column INTEGER NOT NULL
+);
+
+CREATE TABLE seating_plans (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  firstname TEXT NOT NULL,
+  lastname TEXT NOT NULL,
+  subject_id INTEGER NOT NULL,
+  place_id INTEGER NOT NULL,
+  FOREIGN KEY(subject_id) REFERENCES subjects(id),
+  FOREIGN KEY(place_id) REFERENCES places(id)
+);
