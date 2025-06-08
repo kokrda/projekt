@@ -1,22 +1,22 @@
-CREATE TABLE subjects (
+CREATE TABLE IF NOT EXISTS subjects (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   code TEXT NOT NULL
 );
 
-CREATE TABLE places (
+CREATE TABLE IF NOT EXISTS places (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   row INTEGER NOT NULL,
   column INTEGER NOT NULL
 );
 
-CREATE TABLE seating_plans (
+CREATE TABLE IF NOT EXISTS seating_plans (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  firstname TEXT NOT NULL,
-  lastname TEXT NOT NULL,
   subject_id INTEGER NOT NULL,
   place_id INTEGER NOT NULL,
-  FOREIGN KEY(subject_id) REFERENCES subjects(id),
-  FOREIGN KEY(place_id) REFERENCES places(id)
+  firstname TEXT NOT NULL,
+  lastname TEXT NOT NULL,
+  FOREIGN KEY (subject_id) REFERENCES subjects(id),
+  FOREIGN KEY (place_id) REFERENCES places(id)
 );

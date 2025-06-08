@@ -1,149 +1,87 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <title>Zasedací pořádek</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Správa zasedacího pořádku</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <h1>Správa předmětů</h1>
-  <form id="subject-form">
-    <input type="text" id="subject-name" placeholder="Název předmětu" required />
-    <input type="text" id="subject-code" placeholder="Kód předmětu" required />
-    <button type="submit">Přidat předmět</button>
-  </form>
-  <ul id="subjects-list"></ul>
+    <h1>Správa zasedacího pořádku</h1>
+    <div id="error-message" class="error-message"></div>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Předměty</h2>
+            <div>
+                <input type="text" id="subject-name" placeholder="Název předmětu">
+                <input type="text" id="subject-code" placeholder="Zkratka">
+                <button id="add-subject">Přidat předmět</button>
+            </div>
+            
+            <div id="edit-subject-form">
+                <h3>Upravit předmět</h3>
+                <input type="hidden" id="edit-subject-id">
+                <input type="text" id="edit-subject-name" placeholder="Nový název">
+                <input type="text" id="edit-subject-code" placeholder="Nová zkratka">
+                <button id="save-edit-subject">Uložit změny</button>
+                <button id="cancel-edit-subject">Zrušit</button>
+            </div>
+            
+            <table id="subjects-table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Zkratka</th>
+                        <th>Akce</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-  <h1>Správa zasedacího pořádků</h1>
-  <form id="seating-form">
-    <input type="text" id="seating-firstname" placeholder="Jméno žáka" required />
-    <input type="text" id="seating-lastname" placeholder="Příjmení žáka" required />
-    <select id="seating-subject" required>
-      <option value="">Vyber předmět</option>
-    </select>
-    <select id="seating-place" required>
-      <option value="">Vyber místo</option>
-    </select>
-    <button type="submit">Přidat zasedání</button>
-  </form>
-  <ul id="seating-list"></ul>
+        <div class="section">
+            <h2>Zasedací pořádek</h2>
+            <div>
+                <select id="subject-select">
+                    <option value="">Vyberte předmět</option>
+                </select>
+            </div>
+            
+            <div id="classroom-container" style="display: none;">
+                <h3>Rozmístění ve třídě</h3>
+                <div class="classroom" id="classroom-grid"></div>
+                
+                <h3>Přidat žáka</h3>
+                <div>
+                    <input type="text" id="student-firstname" placeholder="Jméno">
+                    <input type="text" id="student-lastname" placeholder="Příjmení">
+                    
+                    <div class="selection-info">
+                        <strong>Vyberte místo kliknutím na třídu výše</strong><br>
+                        Vybráno místo: <span id="selected-place-name">Žádné</span>
+                        <input type="hidden" id="selected-place-id">
+                    </div>
+                    
+                    <button id="add-student">Přidat žáka</button>
+                </div>
+                
+                <h3>Seznam žáků</h3>
+                <table id="students-table">
+                    <thead>
+                        <tr>
+                            <th>Jméno</th>
+                            <th>Příjmení</th>
+                            <th>Místo</th>
+                            <th>Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-<script>
-const apiBase = '/api';
-
-// Načte předměty do seznamu a do selectu
-function loadSubjects() {
-  fetch(apiBase + '/subjects')
-    .then(res => res.json())
-    .then(subjects => {
-      const subjectsList = document.getElementById('subjects-list');
-      subjectsList.innerHTML = '';
-      subjects.forEach(s => {
-        const li = document.createElement('li');
-        li.textContent = `${s.name} (${s.code})`;
-        subjectsList.appendChild(li);
-      });
-      loadSubjectsForSelect(); // aktualizace selectu
-    });
-}
-
-// Naplní select pro výběr předmětu
-function loadSubjectsForSelect() {
-  fetch(apiBase + '/subjects')
-    .then(res => res.json())
-    .then(subjects => {
-      const select = document.getElementById('seating-subject');
-      select.innerHTML = '<option value="">Vyber předmět</option>';
-      subjects.forEach(s => {
-        const option = document.createElement('option');
-        option.value = s.id;
-        option.textContent = `${s.name} (${s.code})`;
-        select.appendChild(option);
-      });
-    });
-}
-
-// Načte místa do selectu
-function loadPlacesForSelect() {
-  fetch(apiBase + '/places')
-    .then(res => res.json())
-    .then(places => {
-      const select = document.getElementById('seating-place');
-      select.innerHTML = '<option value="">Vyber místo</option>';
-      places.forEach(p => {
-        const option = document.createElement('option');
-        option.value = p.id;
-        option.textContent = `${p.name} (řada ${p.row}, sloupec ${p.column})`;
-        select.appendChild(option);
-      });
-    });
-}
-
-// Přidání předmětu
-document.getElementById('subject-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const name = document.getElementById('subject-name').value.trim();
-  const code = document.getElementById('subject-code').value.trim();
-  if (!name || !code) return alert('Vyplň obě pole');
-
-  fetch(apiBase + '/subjects', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, code }),
-  })
-  .then(res => res.json())
-  .then(() => {
-    document.getElementById('subject-name').value = '';
-    document.getElementById('subject-code').value = '';
-    loadSubjects(); // aktualizuje i select
-  });
-});
-
-// Načte zasedací pořádek
-function loadSeating() {
-  fetch(apiBase + '/seating_plans')
-    .then(res => res.json())
-    .then(items => {
-      const seatingList = document.getElementById('seating-list');
-      seatingList.innerHTML = '';
-      items.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.firstname} ${item.lastname} - ${item.subject_name} (${item.subject_code}) - místo: ${item.place_name} (řada ${item.row}, sloupec ${item.column})`;
-        seatingList.appendChild(li);
-      });
-    });
-}
-
-// Přidání zasedání
-document.getElementById('seating-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const firstname = document.getElementById('seating-firstname').value.trim();
-  const lastname = document.getElementById('seating-lastname').value.trim();
-  const subject_id = document.getElementById('seating-subject').value;
-  const place_id = document.getElementById('seating-place').value;
-
-  if (!firstname || !lastname || !subject_id || !place_id) return alert('Vyplň všechna pole');
-
-  fetch(apiBase + '/seating_plans', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstname, lastname, subject_id, place_id }),
-  })
-  .then(res => res.json())
-  .then(() => {
-    document.getElementById('seating-firstname').value = '';
-    document.getElementById('seating-lastname').value = '';
-    document.getElementById('seating-subject').value = '';
-    document.getElementById('seating-place').value = '';
-    loadSeating();
-  });
-});
-
-// Načíst vše po načtení stránky
-window.onload = () => {
-  loadSubjects();
-  loadPlacesForSelect();
-  loadSeating();
-};
-</script>
+    <script src="assets/scripts.js"></script>
 </body>
 </html>

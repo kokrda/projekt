@@ -1,21 +1,24 @@
 const db = require('./db');
-const fs = require('fs');
-const path = require('path');
 
-const schemaSQL = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
-const seedSQL = fs.readFileSync(path.join(__dirname, 'seed.sql'), 'utf8');
-
-db.exec(schemaSQL, (err) => {
-  if (err) {
-    console.error('Chyba při vytváření tabulek:', err.message);
-    process.exit(1);
-  }
-  db.exec(seedSQL, (err2) => {
-    if (err2) {
-      console.error('Chyba při seedování databáze:', err2.message);
-      process.exit(1);
+// Předdefinovaná data
+const initData = async () => {
+  try {
+    // Předměty
+    await db.run("INSERT INTO subjects (name, code) VALUES ('Matematika', 'MAT'), ('Čeština', 'CJL')");
+    
+    // Místa (6x5 grid)
+    const places = [];
+    for (let row = 1; row <= 5; row++) {
+      for (let col = 1; col <= 6; col++) {
+        places.push(`('${String.fromCharCode(64 + row)}${col}', ${row}, ${col})`);
+      }
     }
-    console.log('Databáze byla seedována.');
-    process.exit(0);
-  });
-});
+    await db.run(`INSERT INTO places (name, row, column) VALUES ${places.join(',')}`);
+    
+    console.log('✅ Databáze inicializována');
+  } catch (err) {
+    console.error('❌ Chyba při inicializaci:', err.message);
+  }
+};
+
+initData();
