@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Správa zasedacího pořádku</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <h1>Správa zasedacího pořádku</h1>
+    <div id="error-message" class="error-message"></div>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Předměty</h2>
+            <div>
+                <input type="text" id="subject-name" placeholder="Název předmětu">
+                <input type="text" id="subject-code" placeholder="Zkratka">
+                <button id="add-subject">Přidat předmět</button>
+            </div>
+            
+            <div id="edit-subject-form">
+                <h3>Upravit předmět</h3>
+                <input type="hidden" id="edit-subject-id">
+                <input type="text" id="edit-subject-name" placeholder="Nový název">
+                <input type="text" id="edit-subject-code" placeholder="Nová zkratka">
+                <button id="save-edit-subject">Uložit změny</button>
+                <button id="cancel-edit-subject">Zrušit</button>
+            </div>
+            
+            <table id="subjects-table">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Zkratka</th>
+                        <th>Akce</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Zasedací pořádek</h2>
+            <div>
+                <select id="subject-select">
+                    <option value="">Vyberte předmět</option>
+                </select>
+            </div>
+            
+            <div id="classroom-container" style="display: none;">
+                <h3>Rozmístění ve třídě</h3>
+                <div class="classroom" id="classroom-grid"></div>
+                
+                <h3>Přidat žáka</h3>
+                <div>
+                    <input type="text" id="student-firstname" placeholder="Jméno">
+                    <input type="text" id="student-lastname" placeholder="Příjmení">
+                    
+                    <div class="selection-info">
+                        <strong>Vyberte místo kliknutím na třídu výše</strong><br>
+                        Vybráno místo: <span id="selected-place-name">Žádné</span>
+                        <input type="hidden" id="selected-place-id">
+                    </div>
+                    
+                    <button id="add-student">Přidat žáka</button>
+                </div>
+                
+                <h3>Seznam žáků</h3>
+                <table id="students-table">
+                    <thead>
+                        <tr>
+                            <th>Jméno</th>
+                            <th>Příjmení</th>
+                            <th>Místo</th>
+                            <th>Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/scripts.js"></script>
+</body>
+</html>
