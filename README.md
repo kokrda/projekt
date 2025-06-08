@@ -20,6 +20,8 @@ návod na spuštění serveru...
 - [https://64.media.tumblr.com/76ae2a0216bba7afaa9b94f8b40fb4a2/b97df59d4134c645b9/s540x810/c76882648830fee60bdfe0ccea12a1a376756d89.png](https://i.pinimg.com/564x/2d/7f/cb/2d7fcbff582864789bfb4070ab56be59.jpg)
 - ( takle na tom mentalně ted jsem)
 
+- na pět hodin to opravdu nebilo 😭😭😭 už nad tim sedím +- 10h (když spočitam večery) (moc mi tohle nejde)
+
 
 
 to co funguje -
