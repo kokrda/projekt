@@ -16,8 +16,10 @@ návod na spuštění serveru...
 - čtvrtek- "mohl bych se na to kouknou a popřípadě začít"'
 - pátek- "co sakra mám dělat" nechapal jsem jak mam spracovat zadání, a nakonec pochopil
 - sobota- "UŽ FUNGUJ PROÍM" (sprovoznil jsem api ( vubec to nebylo že "hej deepseeku jak udělam....."))
-- neděle- už to fungovalo, tak jsem to uložil na github a z něakeho duvodu potom přestal fungovat api get/seats, píšu to ve 23🕦 a stále na to nemuho přijít https://64.media.tumblr.com/76ae2a0216bba7afaa9b94f8b40fb4a2/b97df59d4134c645----- 
-- b9/s540x810/c76882648830fee60bdfe0ccea12a1a376756d89.png( takle na tom mentalně ted jsem)
+- neděle- už to fungovalo, tak jsem to uložil na github a z něakeho duvodu potom přestal fungovat api get/seats, píšu to ve 23🕦 a stále na to nemuho přijít 
+- [https://64.media.tumblr.com/76ae2a0216bba7afaa9b94f8b40fb4a2/b97df59d4134c645b9/s540x810/c76882648830fee60bdfe0ccea12a1a376756d89.png](https://i.pinimg.com/564x/2d/7f/cb/2d7fcbff582864789bfb4070ab56be59.jpg)
+- ( takle na tom mentalně ted jsem)
+
 
 
 to co funguje -
